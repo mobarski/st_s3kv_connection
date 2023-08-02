@@ -60,7 +60,7 @@ s3 = st.experimental_connection('my_kv', type=S3KV, mode='dict')
 
 `connection.collection(name, **kwargs) -> dictionary-like object`
 
-Get KV object that can be used to interact with the collection.
+Get dictionary-like object that can be used to interact with the collection.
 
 
 
@@ -166,7 +166,7 @@ TODO
 [connections.my_kv]
 access_key = "XXXXXXXXXXXXXXXXXXXX"
 secret_key = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
-endpoint   = "https://sfo3.digitaloceanspaces.com" # NOT REQUIRED
+endpoint   = "https://sfo3.digitaloceanspaces.com" # NOT REQUIRED ON AWS
 region = "sfo3"
 bucket = "my-bucket-name"
 prefix = "something/version-1"  # NOT REQUIRED
