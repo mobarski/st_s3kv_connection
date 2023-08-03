@@ -16,7 +16,7 @@ S3_CLIENT_OPTIONS = {
     'region':     'region_name',
     # '':'aws_session_token', # TODO: this is not supported yet
 }
-OTHER_OPTIONS = ['bucket', 'prefix', 'path', 'data', 'salt', 'addressing']
+OTHER_OPTIONS = ['bucket', 'prefix', 'path', 'data', 'salt', 'addressing', 'ttl']
 
 
 class S3KV(ExperimentalBaseConnection):
@@ -25,8 +25,14 @@ class S3KV(ExperimentalBaseConnection):
         kw = kwargs.copy()
         kw['s3_client'] = self._instance
         self._update_kw_dict(kw, OTHER_OPTIONS, self.kwargs)
-        
-        return get_kv(self.mode, name, **kw)
+        kv_obj = get_kv(self.mode, name, **kw)
+        # handle TTL by monkey patching kv object
+        ttl = kw.get('ttl', None)
+        if ttl:
+            from streamlit import cache_data
+            kv_obj.__getitem__ = cache_data(kv_obj.__getitem__, ttl=ttl)
+            ... # TODO: other methods ???
+        return kv_obj
 
 
     def _connect(self, **kwargs):

@@ -15,7 +15,11 @@ Features:
 
 
 
-TODO: mention high latency -> best for storing documents
+**Note**
+
+The S3KV connection communicates with S3 in the cloud, which can  introduce latency compared to a local key-value store. This makes it  less ideal for use cases requiring millisecond response times.
+
+However, the S3KV connection excels at securely storing large  documents like JSON, CSV, PDFs, images, etc. The cloud storage and  compression provide very cost-effective storage for large amounts of  data. The encryption keeps sensitive documents secure. So while not the  fastest, the S3KV connection offers inexpensive, encrypted document  storage with a simple key-value interface. The latency trade-off is  often worth it for document-heavy use cases.
 
 
 
@@ -90,7 +94,7 @@ You can find more information about managing connections in [this section](https
 
 - `salt` - cryptographic salt that will be used to generate data encryption key (default: '')
 
-- `ttl` - TODO (default: None → no caching)
+- `ttl` - Streamlit's cache time-to-live option (default: None → no caching), more info [here](docs.streamlit.io/library/advanced-features/caching#controlling-cache-size-and-duration)
 
 
 
