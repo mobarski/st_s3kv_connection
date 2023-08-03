@@ -1,2 +1,5 @@
 requests
+pycryptodome
+cloudpickle
+boto3
 
